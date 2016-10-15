@@ -9,3 +9,7 @@ Exercicio 1, Cálculo númerico - Bordoni
 	- Giancarllo Rojas 
 	- Victor Israel
 '''
+import numpy as np
+import scipy as sp
+
+
