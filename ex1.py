@@ -42,6 +42,8 @@ for h in hs:
     plt.plot([[ponto_medio],[ponto_medio+h]], [f(ponto_medio), f(ponto_medio+h)], 'bo')
     plt.xlabel('x')
     plt.ylabel('y')
+    plt.axhline(y=0, c='k')
+    plt.axvline(x=0, c='k')
     plt.legend()
 
 plt.show();
