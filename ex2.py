@@ -48,32 +48,69 @@ Err_av = []
 Err_ce = []
 Err_at = []
 
+#valor da derivada no ponto a
+deri_a = Df(val_a)
+
 for k in range(0, val_n+1):
     Df_av.append(Df_avancada(val_a, h(k)))
     Df_ce.append(Df_centrada(val_a, h(k)))
     Df_at.append(Df_atrasada(val_a, h(k)))
-    Err_av.append(Df_av[k] - Df(val_a))
-    Err_ce.append(Df_ce[k] - Df(val_a))
-    Err_at.append(Df_at[k] - Df(val_a))
+    Err_av.append(Df_av[k] - deri_a)
+    Err_ce.append(Df_ce[k] - deri_a)
+    Err_at.append(Df_at[k] - deri_a)
 
+#pega os o módulo dos erros
+Err_av = np.absolute(Err_av)
+Err_ce = np.absolute(Err_ce)
+Err_at = np.absolute(Err_at)
 
-print(Err_at)
-#print(Df_av)
 plt.figure(1);
-plt.title('Aproximação por diferença avançada')
+plt.title('Aproximação por DDF\'s - 5x10**-0.00001')
 plt.plot(ks, Df_av, label='dif. avancaçada', linestyle='none', marker='.')
 plt.plot(ks, Df_ce, label='dif. centrada', linestyle='none', marker='.')
 plt.plot(ks, Df_at, label='dif. atrasada', linestyle='none', marker='.')
+
+d_escala = 5*(1 - 10**-0.00001)
+plt.ylim(deri_a - d_escala, deri_a + d_escala)
+
 plt.xlabel('k')
 plt.ylabel('D(' + str(val_a) + ')')
 plt.grid(True)
 plt.legend(loc='best')
 
 plt.figure(2);
+plt.title('Aproximação por DDF\'s - 5x10**0.01')
+plt.plot(ks, Df_av, label='dif. avancaçada', linestyle='none', marker='.')
+plt.plot(ks, Df_ce, label='dif. centrada', linestyle='none', marker='.')
+plt.plot(ks, Df_at, label='dif. atrasada', linestyle='none', marker='.')
+
+d_escala = 5*(1 - 10**-0.001)
+plt.ylim(deri_a - d_escala, deri_a + d_escala)
+
+plt.xlabel('k')
+plt.ylabel('D(' + str(val_a) + ')')
+plt.grid(True)
+plt.legend(loc='best')
+
+plt.figure(3);
+plt.title('Aproximação por DDF\'s - 5*10**-1e-06')
+plt.plot(ks, Df_av, label='dif. avancaçada', linestyle='none', marker='.')
+plt.plot(ks, Df_ce, label='dif. centrada', linestyle='none', marker='.')
+plt.plot(ks, Df_at, label='dif. atrasada', linestyle='none', marker='.')
+
+d_escala = 5*(1 - 10**-1e-07)
+plt.ylim(deri_a - d_escala, deri_a + d_escala)
+
+plt.xlabel('k')
+plt.ylabel('D(' + str(val_a) + ')')
+plt.grid(True)
+plt.legend(loc='best')
+
+plt.figure(4);
 plt.title('Erro nas aproximações por DDPs')
-plt.plot(ks, Err_av, label='dif. avancaçada', linestyle='none', marker='.')
-plt.plot(ks, Err_ce, label='dif. centrada', linestyle='none', marker='.')
-plt.plot(ks, Err_at, label='dif. atrasada', linestyle='none', marker='.')
+plt.semilogy(ks, Err_av, label='dif. avancaçada', linestyle='none', marker='.')
+plt.semilogy(ks, Err_ce, label='dif. centrada', linestyle='none', marker='.')
+plt.semilogy(ks, Err_at, label='dif. atrasada', linestyle='none', marker='.')
 plt.xlabel('k')
 plt.ylabel('Erro')
 plt.grid(True)
